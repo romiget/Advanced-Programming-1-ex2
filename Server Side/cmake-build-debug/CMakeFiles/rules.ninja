@@ -6,7 +6,7 @@
 # It is included in the main 'build.ninja'.
 
 # =============================================================================
-# Project: Advanced_Programming_1
+# Project: Server_Side
 # Configurations: Debug
 # =============================================================================
 # =============================================================================
@@ -14,7 +14,7 @@
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Advanced_Programming_1_Debug
+rule CXX_COMPILER__Server_Side_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/c++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -24,7 +24,7 @@ rule CXX_COMPILER__Advanced_Programming_1_Debug
 #############################################
 # Rule for linking CXX executable.
 
-rule CXX_EXECUTABLE_LINKER__Advanced_Programming_1_Debug
+rule CXX_EXECUTABLE_LINKER__Server_Side_Debug
   command = $PRE_LINK && /usr/bin/c++ $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /snap/clion/203/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/romrom4444/CLionProjects/Advanced-Programming-1 -B/home/romrom4444/CLionProjects/Advanced-Programming-1/cmake-build-debug
+  command = /snap/clion/203/bin/cmake/linux/bin/cmake --regenerate-during-build -S"/home/romrom4444/CLionProjects/Advanced-Programming-1-ex2/Server Side" -B"/home/romrom4444/CLionProjects/Advanced-Programming-1-ex2/Server Side/cmake-build-debug"
   description = Re-running CMake...
   generator = 1
 
