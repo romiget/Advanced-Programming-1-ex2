@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(Advanced_Programming_1)
+project(Server Side)
 
 set(CMAKE_CXX_STANDARD 11)
 

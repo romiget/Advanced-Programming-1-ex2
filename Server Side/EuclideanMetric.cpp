@@ -14,5 +14,6 @@ double EuclideanMetric::metric(vector<double> l1, vector<double> l2) const {
     for (int i = 0; i < l1.size(); i++) {
         distance += pow(l1[i] - l2[i], 2);
     }
+    int x = 2;
     return sqrt(distance);
 }
