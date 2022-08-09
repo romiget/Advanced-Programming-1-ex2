@@ -1,0 +1,3 @@
+/home/romrom4444/CLionProjects/Advanced-Programming-1/cmake-build-debug/CMakeFiles/Advanced_Programming_1.dir
+/home/romrom4444/CLionProjects/Advanced-Programming-1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/romrom4444/CLionProjects/Advanced-Programming-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
