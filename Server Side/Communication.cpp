@@ -44,7 +44,7 @@ void Communication::waitForConnection() {
     }
 }
 
-string Communication::getLine() {
+string Communication::getLine(const string& sourceFile) {
     char buffer[256];
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
@@ -55,15 +55,16 @@ string Communication::getLine() {
         perror("couldn't receive information");
     }
     else {
-        sendLine(buffer);
+        sendLine(buffer, sourceFile);
     }
 }
 
-void Communication::sendLine(char* message) {
-    Flower interpreted = FileHandler::createFlower(message);
-    char classification[] = ""; // change this to the output of knncheck when the file is fixed.
-    int data_len = sizeof(classification);
-    int sent_bytes = send(sock, classification, data_len, 0);
+void Communication::sendLine(char* message, const string& sourceFile) {
+    Flower interpreted = FileHandler::createFlowerFromUnclassified(message);
+    char* classification;
+    classification = &FileHandler::knnCheck(FileHandler::getFlowers(sourceFile)).front();
+    unsigned long data_len = strlen(classification);
+    int sent_bytes = send(client_sock, classification, data_len, 0); // wtf??
 }
 
 void Communication::disconnect() {

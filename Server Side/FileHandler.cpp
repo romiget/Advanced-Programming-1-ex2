@@ -58,73 +58,34 @@ Flower FileHandler::createFlowerFromUnclassified(const string& line) {
     return measured;
 }
 
-void FileHandler::euclideanScan(const vector<Flower> &flowers, fstream &fs, int k) {
-    fstream euclid;
-    euclid.open("euclidean_output.csv", ios::out);
+void FileHandler::scan(const vector<Flower> &flowers, fstream &fs, int k, Metric& func) {
+    fstream scan;
+    scan.open("euclidean_output.csv", ios::out);
     string line;
     while (getline(fs, line)) {
         Flower measured = createFlowerFromUnclassified(line);
-        euclideanClassify(measured, flowers, euclid, k);
+        classify(measured, flowers, scan, k);
     }
-    euclid.close();
+    scan.close();
 }
 
-void FileHandler::chebyshevScan(const vector<Flower> &flowers, fstream &fs, int k) {
-    fstream chebyshev;
-    chebyshev.open("euclidean_output.csv", ios::out);
-    string line;
-    while (getline(fs, line)) {
-        Flower measured = createFlowerFromUnclassified(line);
-        chebyshevClassify(measured, flowers, chebyshev, k);
-    }
-    chebyshev.close();
-}
-
-void FileHandler::manhattanScan(const vector<Flower> &flowers, fstream &fs, int k) {
-    fstream manhattan;
-    manhattan.open("euclidean_output.csv", ios::out);
-    string line;
-    while (getline(fs, line)) {
-        Flower measured = createFlowerFromUnclassified(line);
-        manhattanClassify(measured, flowers, manhattan, k);
-    }
-    manhattan.close();
-}
-
-void FileHandler::euclideanClassify(Flower measured, const vector<Flower>& flowers, fstream& euclid, int k) {
-    EuclideanMetric euclideanMetric;
-    vector<Measurable> euclideanKnn = MeasurableList::KNN((vector<struct Measurable> &) flowers,
-            euclideanMetric, measured, k);
-    measured.setType(FileHandler::knnCheck(euclideanKnn));
+void FileHandler::classify(Flower measured, const vector<Flower>& flowers, fstream& euclid, int k, Metric& func) {
+    vector<Measurable> knn = MeasurableList::KNN((vector<struct Measurable> &) flowers,
+            func, measured, k);
+    measured.setType(FileHandler::knnCheck(knn));
     euclid << measured.getType() << endl;
 }
 
-void FileHandler::chebyshevClassify(Flower measured, const vector<Flower> &flowers, fstream &chebyshev, int k) {
-    ChebyshevMetric chebyshevMetric;
-    vector<Measurable> chebyshevKnn = MeasurableList::KNN((vector<struct Measurable> &) flowers,
-            chebyshevMetric, measured, k);
-    measured.setType(FileHandler::knnCheck(chebyshevKnn));
-    chebyshev << measured.getType() << endl;
-}
-
-void FileHandler::manhattanClassify(Flower measured, const vector<Flower> &flowers, fstream &manhattan, int k) {
-    ManhattanMetric manhattanMetric;
-    vector<Measurable> manhattanKnn = MeasurableList::KNN((vector<struct Measurable> &) flowers,
-            manhattanMetric, measured, k);
-    measured.setType(FileHandler::knnCheck(manhattanKnn));
-    manhattan << measured.getType() << endl;
-}
-
-string FileHandler::knnCheck(vector<Measurable> measurables) {
+string FileHandler::knnCheck(vector<Flower> flowers) {
     pair<int, string> setosa = {0, "Iris-setosa"};
     pair<int, string> versicolor = {0, "Iris-versicolor"};
     pair<int, string> virginica = {0, "Iris-virginica"};
-    for (int i = 0; i < measurables.size(); i++) {
-        if (measurables[i].getType() == "Iris-setosa")
+    for (int i = 0; i < flowers.size(); i++) {
+        if (flowers[i].getType() == "Iris-setosa")
             setosa.first++;
-        else if (measurables[i].getType() == "Iris-versicolor")
+        else if (flowers[i].getType() == "Iris-versicolor")
             versicolor.first++;
-        else if (measurables[i].getType() == "Iris-virginica")
+        else if (flowers[i].getType() == "Iris-virginica")
             virginica.first++;
     }
     pair<int, string> maximum;
