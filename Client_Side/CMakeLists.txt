@@ -3,4 +3,4 @@ project(Client_Side)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Client_Side main.cpp)
+add_executable(Client_Side main.cpp Communication.cpp Communication.h)
