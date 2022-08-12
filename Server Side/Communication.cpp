@@ -63,8 +63,8 @@ void Communication::sendLine(char* message, const string& sourceFile) {
     Flower interpreted = FileHandler::createFlowerFromUnclassified(message);
     char* classification;
     classification = &FileHandler::knnCheck(FileHandler::getFlowers(sourceFile)).front();
-    unsigned long data_len = strlen(classification);
-    int sent_bytes = send(client_sock, classification, data_len, 0); // wtf??
+    int data_len = strlen(classification);
+    int sent_bytes = send(client_sock, classification, data_len, 0);
 }
 
 void Communication::disconnect() {
