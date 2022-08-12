@@ -4,6 +4,7 @@
 
 #include "Communication.h"
 #include <iostream>
+#include <fstream>
 #include <sys/socket.h>
 #include <stdio.h>
 #include <netinet/in.h>
@@ -12,6 +13,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "FileHandler.h"
+#include <exception>
 
 using namespace std;
 
@@ -44,7 +46,7 @@ void Communication::waitForConnection() {
     }
 }
 
-string Communication::getLine(const string& sourceFile) {
+string Communication::getLine(const string& sourceFile, const string& writeFile) {
     char buffer[256];
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
@@ -52,19 +54,25 @@ string Communication::getLine(const string& sourceFile) {
         disconnect();
     }
     else if (read_bytes < 0) {
-        perror("couldn't receive information");
+        throw exception();
     }
     else {
-        sendLine(buffer, sourceFile);
+        sendLine(buffer, sourceFile, writeFile);
     }
 }
 
-void Communication::sendLine(char* message, const string& sourceFile) {
+void Communication::sendLine(char* message, const string& sourceFile, const string& writeFile) {
+    fstream file;
+    file.open(writeFile, ios::out);
     Flower interpreted = FileHandler::createFlowerFromUnclassified(message);
     char* classification;
     classification = &FileHandler::knnCheck(FileHandler::getFlowers(sourceFile)).front();
     int data_len = strlen(classification);
     int sent_bytes = send(client_sock, classification, data_len, 0);
+    if (sent_bytes < 0) {
+        throw exception();
+    }
+    file << classification << endl;
 }
 
 void Communication::disconnect() {
