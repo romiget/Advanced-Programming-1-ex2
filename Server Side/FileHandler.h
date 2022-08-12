@@ -12,7 +12,7 @@
 #include "Flower.h"
 class FileHandler {
 public:
-    static std::vector<std::string> splitLine(std::string line, char delimiter);
+    static std::vector<std::string> splitLine(const std::string& line, char delimiter);
     static std::vector<Flower> getFlowers(const string& fileName);
     static Flower createFlowerFromClassified(const string& line);
     static Flower createFlowerFromUnclassified(const string& line);
