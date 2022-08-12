@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
     int client_sock = accept(sock,  (struct sockaddr *) &client_sin,  &addr_len);
 
     if (client_sock < 0) {
-        perror("couldn't accept client");
+        perror("couldn't accept connection");
     }
 
     while (true) {
@@ -49,17 +49,17 @@ int main(int argc, char* argv[]) {
             int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
             if (read_bytes == 0) {
                 close(sock);
+                return 0;
             }
             else if (read_bytes < 0) {
                 throw exception();
             }
             else {
-                Flower interpreted = FileHandler::createFlowerFromUnclassified(buffer);
                 char* classification;
                 fstream stream = fstream(argv[1]);
                 EuclideanMetric eum = EuclideanMetric();
                 Flower unclassified = FileHandler::createFlowerFromUnclassified(buffer);
-                FileHandler::classify(FileHandler::createFlowerFromUnclassified(buffer),
+                FileHandler::classify(unclassified,
                                       FileHandler::getFlowers(argv[1]),stream, 9, eum);
                 classification = &(unclassified.getType().front());
                 int data_len = strlen(classification);

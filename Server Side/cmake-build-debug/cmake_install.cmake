@@ -1,4 +1,4 @@
-# Install script for directory: /home/ido/CLionProjects/Advanced-Programming-1-ex2/Server Side
+# Install script for directory: /home/romrom4444/CLionProjects/Advanced-Programming-1-ex2/Server Side
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/ido/CLionProjects/Advanced-Programming-1-ex2/Server Side/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/romrom4444/CLionProjects/Advanced-Programming-1-ex2/Server Side/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

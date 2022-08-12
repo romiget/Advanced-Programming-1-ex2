@@ -13,7 +13,7 @@
 using namespace std;
 int main(int argc, char* argv[]) {
     const char* ip_address = "127.0.0.1";
-    static const int port_no = 5555;
+    static const int port_no = 1234;
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {
         perror("error creating socket");
