@@ -14,7 +14,7 @@
 
 using namespace std;
 
-vector<string> FileHandler::splitLine(string line, char delimiter) {
+vector<string> FileHandler::splitLine(const string& line, char delimiter) {
     vector<string> res;
     stringstream stringStream(line);
     string attribute;
@@ -64,7 +64,7 @@ void FileHandler::scan(const vector<Flower> &flowers, fstream &fs, int k, Metric
     string line;
     while (getline(fs, line)) {
         Flower measured = createFlowerFromUnclassified(line);
-        classify(measured, flowers, scan, k);
+        classify(measured, flowers, scan, k, func);
     }
     scan.close();
 }
@@ -76,16 +76,16 @@ void FileHandler::classify(Flower measured, const vector<Flower>& flowers, fstre
     euclid << measured.getType() << endl;
 }
 
-string FileHandler::knnCheck(vector<Flower> flowers) {
+string FileHandler::knnCheck(const vector<Measurable>& flowers) {
     pair<int, string> setosa = {0, "Iris-setosa"};
     pair<int, string> versicolor = {0, "Iris-versicolor"};
     pair<int, string> virginica = {0, "Iris-virginica"};
-    for (int i = 0; i < flowers.size(); i++) {
-        if (flowers[i].getType() == "Iris-setosa")
+    for (auto & flower : flowers) {
+        if (flower.getType() == "Iris-setosa")
             setosa.first++;
-        else if (flowers[i].getType() == "Iris-versicolor")
+        else if (flower.getType() == "Iris-versicolor")
             versicolor.first++;
-        else if (flowers[i].getType() == "Iris-virginica")
+        else if (flower.getType() == "Iris-virginica")
             virginica.first++;
     }
     pair<int, string> maximum;
