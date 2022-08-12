@@ -27,10 +27,10 @@ int main(int argc, char* argv[]) {
         perror("error connecting to server");
     }
     fstream fs;
-    fs.open(argv[1]);
+    fs.open(argv[0]);
     string line;
     while (getline(fs, line)) {
         Communication::sendData(sock, &line.front());
-        Communication::recvData(sock, argv[2]);
+        Communication::recvData(sock, argv[1]);
     }
 }
