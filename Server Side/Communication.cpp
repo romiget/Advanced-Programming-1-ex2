@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "FileHandler.h"
 #include <exception>
+#include "EuclideanMetric.h"
 
 using namespace std;
 
@@ -46,7 +47,7 @@ void Communication::waitForConnection() {
     }
 }
 
-string Communication::getLine(const string& sourceFile, const string& writeFile) {
+string Communication::getLine(const string& sourceFile) {
     char buffer[256];
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
@@ -57,22 +58,24 @@ string Communication::getLine(const string& sourceFile, const string& writeFile)
         throw exception();
     }
     else {
-        sendLine(buffer, sourceFile, writeFile);
+        sendLine(buffer, sourceFile);
     }
 }
 
-void Communication::sendLine(char* message, const string& sourceFile, const string& writeFile) {
-    fstream file;
-    file.open(writeFile, ios::out);
+void Communication::sendLine(char* message, const string& sourceFile) {
     Flower interpreted = FileHandler::createFlowerFromUnclassified(message);
     char* classification;
-    classification = &FileHandler::knnCheck(FileHandler::getFlowers(sourceFile)).front();
+    fstream stream = fstream(sourceFile);
+    EuclideanMetric eum = EuclideanMetric();
+    Flower unclassified = FileHandler::createFlowerFromUnclassified(message);
+    FileHandler::classify(FileHandler::createFlowerFromUnclassified(message),
+                          FileHandler::getFlowers(sourceFile),stream, 9, eum);
+    classification = &(unclassified.getType().front());
     int data_len = strlen(classification);
     int sent_bytes = send(client_sock, classification, data_len, 0);
     if (sent_bytes < 0) {
         throw exception();
     }
-    file << classification << endl;
 }
 
 void Communication::disconnect() {

@@ -19,8 +19,8 @@ class Communication {
     public:
         static void init();
         static void waitForConnection();
-        static string getLine(const string& sourceFile, const string& writeFile);
-        static void sendLine(char* message, const string& sourceFile, const string& writeFile);
+        static string getLine(const string& sourceFile);
+        static void sendLine(char* message, const string& sourceFile);
         static void disconnect();
 };
 

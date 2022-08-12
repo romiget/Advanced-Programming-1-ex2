@@ -6,9 +6,9 @@ int main(int argc, char* argv[]) {
     Communication::waitForConnection();
     while (true) {
         try {
-            Communication::getLine(argv[2], argv[1]);
+            Communication::getLine(argv[1]);
         }
-        catch (exception) {
+        catch (exception&) {
             Communication::disconnect();
             return 0;
         }
