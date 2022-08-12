@@ -13,25 +13,7 @@
 
 using namespace std;
 
-void Communication::init() {
-    ip_address = "127.0.0.1";
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock < 0) {
-        perror("error creating socket");
-    }
-    memset(&sin, 0, sizeof(sin));
-    sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = inet_addr(ip_address);
-    sin.sin_port = htons(port_no);
-}
-
-void Communication::connectToServer() {
-    if (connect(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        perror("error connecting to server");
-    }
-}
-
-void Communication::sendData(char* message) {
+void Communication::sendData(int sock, char* message) {
     int data_len = strlen(message);
     int sent_bytes = send(sock, message, data_len, 0);
 
@@ -40,7 +22,7 @@ void Communication::sendData(char* message) {
     }
 }
 
-void Communication::recvData(const string writeFile) {
+void Communication::recvData(int sock, const string writeFile) {
     fstream ostream;
     ostream.open(writeFile, ios::out);
     char buffer[256];
