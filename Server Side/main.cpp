@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
                 EuclideanMetric eum = EuclideanMetric();
                 Flower unclassified = FileHandler::createFlowerFromUnclassified(buffer);
                 FileHandler::classify(unclassified,
-                                      FileHandler::getFlowers(argv[1]),stream, 9, eum);
+                                      FileHandler::getFlowers(argv[1]),stream, 9, eum); // segmentation fault happens here
                 classification = &(unclassified.getType().front());
                 int data_len = strlen(classification);
                 int sent_bytes = send(client_sock, classification, data_len, 0);
