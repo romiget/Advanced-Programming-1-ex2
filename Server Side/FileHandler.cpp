@@ -73,7 +73,7 @@ void FileHandler::classify(Flower measured, const vector<Flower>& flowers, fstre
     vector<Measurable> knn = MeasurableList::KNN((vector<struct Measurable> &) flowers,
             func, measured, k);
     measured.setType(FileHandler::knnCheck(knn));
-    euclid << measured.getType() << endl;
+    //euclid << measured.getType() << endl;
 }
 
 string FileHandler::knnCheck(const vector<Measurable>& flowers) {

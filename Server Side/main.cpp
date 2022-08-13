@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
         try {
             char buffer[256];
             int expected_data_len = sizeof(buffer);
-            int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+            ssize_t read_bytes = recv(client_sock, buffer, expected_data_len, 0);
             if (read_bytes == 0) {
                 close(sock);
                 return 0;
