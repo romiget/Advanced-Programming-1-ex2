@@ -1,6 +1,7 @@
 //
 // Created by ido on 8/12/22.
 //
+#include <string>
 
 #ifndef SERVER_SIDE_COMMUNICATION_H
 #define SERVER_SIDE_COMMUNICATION_H

@@ -17,7 +17,7 @@ void Communication::sendData(int sock, char* message) {
     int data_len = strlen(message);
     int sent_bytes = send(sock, message, data_len, 0);
 
-    if (sent_bytes < 0) {
+    if (sent_bytes < 0)
         perror("can't send message to the server!");
     }
 }

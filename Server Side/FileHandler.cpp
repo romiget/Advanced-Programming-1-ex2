@@ -69,7 +69,7 @@ void FileHandler::scan(const vector<Flower> &flowers, fstream &fs, int k, Metric
     scan.close();
 }
 
-void FileHandler::classify(Flower measured, const vector<Flower>& flowers, fstream& euclid, int k, Metric& func) {
+void FileHandler::classify(Flower& measured, const vector<Flower>& flowers, fstream& euclid, int k, Metric& func) {
     vector<Measurable> knn = MeasurableList::KNN((vector<struct Measurable> &) flowers,
             func, measured, k);
     measured.setType(FileHandler::knnCheck(knn));

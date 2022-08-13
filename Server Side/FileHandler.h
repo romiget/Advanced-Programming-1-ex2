@@ -17,7 +17,7 @@ public:
     static Flower createFlowerFromClassified(const string& line);
     static Flower createFlowerFromUnclassified(const string& line);
     static void scan(const vector<Flower>& flowers, fstream& fs, int k, Metric& func);
-    static void classify(Flower measured, const vector<Flower>& flowers, fstream& euclid, int k, Metric& func);
+    static void classify(Flower& measured, const vector<Flower>& flowers, fstream& euclid, int k, Metric& func);
     static string knnCheck(const vector<Measurable>& flowers);
 };
 #endif //ADVANCED_PROGRAMMING_1_FILEHANDLER_H
