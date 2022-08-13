@@ -56,14 +56,14 @@ int main(int argc, char* argv[]) {
             }
             else {
                 char* classification;
-                fstream stream = fstream(argv[1]);
                 EuclideanMetric eum = EuclideanMetric();
                 Flower unclassified = FileHandler::createFlowerFromUnclassified(buffer);
-                vector<Flower> flowers = FileHandler::getFlowers(argv[1]);
-                FileHandler::classify(unclassified, flowers,stream, 9, eum); // segmentation fault happens here
+                vector<Flower> flowers = FileHandler::getFlowers(argv[1]); // segmentation fault happens here
+                fstream stream = fstream(argv[1]);
+                FileHandler::classify(unclassified, flowers,stream, 9, eum);
                 classification = &(unclassified.getType().front());
-                int data_len = strlen(classification);
-                int sent_bytes = send(client_sock, classification, data_len, 0);
+                size_t data_len = strlen(classification);
+                ssize_t sent_bytes = send(client_sock, classification, data_len, 0);
                 if (sent_bytes < 0) {
                     throw exception();
                 }
