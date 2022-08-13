@@ -13,6 +13,7 @@
 
 using namespace std;
 int main(int argc, char* argv[]) {
+    const string data = "cmake-build-debug/classified.csv";
     const int server_port = 1234;
     struct sockaddr_in sin;
 
@@ -58,8 +59,8 @@ int main(int argc, char* argv[]) {
                 char* classification;
                 EuclideanMetric eum = EuclideanMetric();
                 Flower unclassified = FileHandler::createFlowerFromUnclassified(buffer);
-                vector<Flower> flowers = FileHandler::getFlowers(argv[1]); // segmentation fault happens here
-                fstream stream = fstream(argv[1]);
+                vector<Flower> flowers = FileHandler::getFlowers( data); // segmentation fault happens here
+                fstream stream = fstream(data);
                 FileHandler::classify(unclassified, flowers,stream, 9, eum);
                 classification = &(unclassified.getType().front());
                 size_t data_len = strlen(classification);
