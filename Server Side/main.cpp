@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
                 fstream stream = fstream(argv[1]);
                 EuclideanMetric eum = EuclideanMetric();
                 Flower unclassified = FileHandler::createFlowerFromUnclassified(buffer);
-                vector<Flower> flowers = FileHandler::getFlowers(argv[0]);
+                vector<Flower> flowers = FileHandler::getFlowers(argv[1]);
                 FileHandler::classify(unclassified, flowers,stream, 9, eum); // segmentation fault happens here
                 classification = &(unclassified.getType().front());
                 int data_len = strlen(classification);
