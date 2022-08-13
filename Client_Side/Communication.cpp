@@ -19,12 +19,11 @@ void Communication::sendData(int sock, char* message) {
 
     if (sent_bytes < 0)
         perror("can't send message to the server!");
-    }
 }
 
 void Communication::recvData(int sock, const string writeFile) {
     fstream ostream;
-    ostream.open(writeFile, ios::out);
+    ostream.open(writeFile, ios::app);
     char buffer[256];
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(sock, buffer, expected_data_len, 0);
