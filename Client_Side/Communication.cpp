@@ -13,6 +13,11 @@
 
 using namespace std;
 
+/**
+ * This function sends a message to the server using socket.
+ * @param sock is the socket.
+ * @param message is the message.
+ */
 void Communication::sendData(int sock, char* message) {
     int data_len = strlen(message);
     int sent_bytes = send(sock, message, data_len, 0);
@@ -21,6 +26,11 @@ void Communication::sendData(int sock, char* message) {
         perror("can't send message to the server!");
 }
 
+/**
+ * This function receives a message from the server using socket and writes it to a file.
+ * @param sock is the socket.
+ * @param writeFile is the file.
+ */
 void Communication::recvData(int sock, const string writeFile) {
     fstream ostream;
     ostream.open(writeFile, ios::app);
