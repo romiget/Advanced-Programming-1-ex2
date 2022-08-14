@@ -28,6 +28,6 @@
 # To run the program, you will need to supply two paths. The first one is the file of unclassified flowers, and the second is the file to which the program writes.
 # The files should lie in the folder cmake-build-debug
 # The second file doesn't have to exist yet, but make sure it is empty if it does
-# The run command is $ ./output cmake-build-debug/unclassified.csv cmake-build-debug/classified.csv
+# The run command is $ ./output cmake-build-debug/<unclassified>.csv cmake-build-debug/<classified>.csv
 
 # The program will quickly finish, and you should find a file in Client_Side/cmake-build-debug that will hold the classifications of the flowers you sent.
